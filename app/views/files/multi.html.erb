@@ -1,0 +1,36 @@
+@extends('app')
+
+
+@section('meta_title', 'REDMOND - множественное добавление файлов')
+
+@section('content')
+
+<h1>Множественное добавление файлов</h1>
+
+{!! Form::open(
+    array(
+        'class' => 'dropzone',
+        'id' => 'dropzone',
+        'novalidate' => 'novalidate',
+        'files' => true)) !!}
+
+
+
+
+
+{!! Form::close() !!}
+
+<br/>
+<div class="form-group">
+    {!! Form::submit('Сохранить!', array('class' => 'btn btn-primary')) !!}
+</div>
+
+@if($errors)
+    <ul class="text-danger">
+        @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+@endif
+
+@endsection

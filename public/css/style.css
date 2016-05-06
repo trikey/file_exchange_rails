@@ -1,0 +1,37 @@
+.form-group.required .control-label:after {
+    content:"*";
+    color:red;
+}
+.folder_rename_input {
+    color: black;
+}
+
+.webix_hcell {
+    height: 46px;
+    line-height: 46px;
+}
+.webix_column, .webix_ss_center_scroll, .webix_ss_center, .webix_ss_body {
+    position: inherit;
+}
+
+.webix_first .webix_cell {
+    border-left: 1px solid #ebebeb;
+}
+.webix_first {
+    cursor: pointer;
+}
+.webix_ss_center_scroll, .webix_ss_center, .webix_ss_body, .webix_dtable, .webix_view  {
+    overflow: visible;
+}
+.webix_hcell {
+    cursor: default;
+}
+.bar
+{
+    background-color: #337ab7;
+    height: 20px;
+    color: #ffffff;
+}
+.percent {
+    color: #ffffff;
+}

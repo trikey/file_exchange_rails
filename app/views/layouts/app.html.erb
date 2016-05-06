@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= if content_for?(:meta_title) then yield(:meta_title) else 'File Exchange' end %></title>
+  <meta name="keywords" content="<%= if content_for?(:meta_keywords) then yield(:meta_keywords) + ' | ' else 'Keywords' end %>" />
+  <meta name="description" content="<%= if content_for?(:meta_description) then yield(:meta_description) + ' | ' else 'Description' end %>" />
+
+
+	<!--[if lt IE 9]>
+    <script src="<%= asset_path('/js/html5shiv.js') %>"></script>
+    <script src="<%= asset_path('/js/respond.min.js') %>"></script>
+  <![endif]-->
+
+
+  <link href="<%= asset_path('/bootstrap/css/bootstrap.css?' + Time.now.to_i.to_s) %>" rel="stylesheet">
+  <link href="<%= asset_path('/bootstrap-treeview/css/bootstrap-treeview.css')  %>" rel="stylesheet">
+  <link href="<%= asset_path('/css/dropzone.css') %>" rel="stylesheet">
+  <link href="<%= asset_path('/css/filemanager.css') %>" rel="stylesheet">
+  <link href="<%= asset_path('/css/webix.css') %>" rel="stylesheet">
+  <link href="<%= asset_path('/css/style.css?345345') %>" rel="stylesheet">
+
+  <script type="text/javascript" src="<%= asset_path('/js/jquery/jquery-1.10.1.min.js') %>"></script>
+
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="lang_ru">
+	<div class="">
+    <div class="col-lg-2 col-sm-2 col-xs-2">
+        <%= render partial: "include/menu" %>
+    </div>
+    <div class="col-lg-10 col-sm-10 col-xs-10">
+			<%= yield %>
+		</div>
+  </div>
+    <script type="text/javascript" src="<%= asset_path('/bootstrap/js/bootstrap.min.js') %>"></script>
+    <script type="text/javascript" src="<%= asset_path('/bootstrap-treeview/js/bootstrap-treeview.js') %>"></script>
+    <script type="text/javascript" src="<%= asset_path('/js/dropzone.js') %>"></script>
+    <script type="text/javascript" src="<%= asset_path('/js/bootstrap-contextmenu.js?') %>"></script>
+    <script type="text/javascript" src="<%= asset_path('/js/client.js?' + Time.now.to_i.to_s) %>"></script>
+    
+    <script type="text/javascript" src="<%= asset_path('/js/jquery.form.js') %>"></script>
+    <script type="text/javascript" src="<%= asset_path('/js/script.js?' + Time.now.to_i.to_s) %>"></script>
+</body>
+</html>

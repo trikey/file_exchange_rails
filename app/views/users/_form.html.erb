@@ -1,0 +1,69 @@
+
+<%= form_for :user, :method => @form_created.present? ? 'post' : 'put' do |f| %>
+
+
+  <% if @user.present? and @user.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+	<div class="form-group">
+    <%= f.label :fio %>
+    <%= f.text_field :fio, class: 'form-control' %>
+ </div>
+ <div class="form-group">
+    <%= f.label :organisation %>
+    <%= f.text_field :organisation, class: 'form-control' %>
+ </div>
+ <div class="form-group">
+    <%= f.label :email %>
+    <%= f.text_field :email, class: 'form-control' %>
+ </div>
+
+ <div class="form-group">
+    <%= f.label :password %>
+    <%= f.password_field :password, class: 'form-control' %>
+ </div>
+
+ <div class="form-group">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+ </div>
+
+ <div class="form-group">
+    <div class="checkbox">
+        <label>
+    <%= f.check_box :isModerator, :value => 1 %> <b>Модератор</b>
+    </label>
+    </div>
+ </div>
+
+ <div class="form-group">
+    <div class="checkbox">
+        <label>
+    <%= f.check_box :isAdmin, :value => 1 %> <b>Администратор</b>
+    </label>
+    </div>
+ </div>
+
+ <div class="form-group">
+    <div class="checkbox">
+        <label>
+    <%= f.check_box :canAccess, :value => 1 %> <b>Может просматривать контент</b>
+    </label>
+    </div>
+ </div>
+
+
+
+  <p>
+    <%= f.submit :class => 'btn btn-primary', :value => 'Сохранить!' %>
+  </p>
+<% end %>

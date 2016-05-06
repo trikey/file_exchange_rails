@@ -1,0 +1,57 @@
+<% content_for :meta_title do %>REDMOND - Список пользователей<% end %>
+
+
+<h1>Список пользователей</h1>
+
+<a href="<%= url_for admin_users_create_path %>" class="btn btn-primary">
+  <span class="glyphicon glyphicon-plus"></span> Добавить пользователя
+</a>
+<br/><br/>
+
+<form method="GET" action="<%= url_for users_search_path %>" accept-charset="UTF-8" class="form-inline" novalidate="novalidate" id="search_form">
+<div class="form-group">
+    <label for="search">Поиск</label>
+    <input placeholder="" class="form-control" id="search" name="query" type="text" value="<%= params[:query].present? ? params[:query] : '' %>">
+</div>
+<input class="btn btn-primary" type="submit" value="Поиск!">
+</form>
+<br/>
+
+<% if !@users.blank? %>
+	<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Ф.И.О.</th>
+        <th>Организация</th>
+        <th>Есть доступ?</th>
+        <th>Является модератором?</th>
+        <th>Является администратором?</th>
+        <th></th>
+    </tr>
+
+    <% for user in @users %>
+        <tr>
+            <td><%= user.id %></td>
+            <td><%= user.email %></td>
+            <td><%= user.fio %></td>
+            <td><%= user.organisation %></td>
+            <td><%= user.canAccess == 1 ? 'да' : 'нет' %></td>
+            <td><%= user.isModerator == 1 ? 'да' : 'нет' %></td>
+            <td><%= user.isAdmin == 1 ? 'да' : 'нет' %></td>
+            <td>
+                <span data-placement="top" data-toggle="tooltip" title="Edit"><a class="btn btn-primary btn-xs admin_edit" href="<%= url_for admin_users_edit_path(user.id) %>" data-title="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a></span>
+                <span data-placement="top" data-toggle="tooltip" title="Delete"><a class="btn btn-danger btn-xs admin_delete" href="<%= url_for admin_users_delete_path(user.id) %>" data-title="Удалить"><span class="glyphicon glyphicon-trash"></span></a></span>
+            </td>
+        </tr>
+    <% end %>
+  </table>
+  <br/>
+
+  <%= will_paginate @users %>	
+<% else %>
+
+<p class="text-info">Записей не найдено</p>
+
+<% end %>
+
