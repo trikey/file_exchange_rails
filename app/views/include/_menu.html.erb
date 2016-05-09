@@ -1,10 +1,14 @@
 <h1 class="container">Меню</h1>
 <ul class="nav">
-	<li><%= link_to "Список пользователей", users_path %></li>
-	<li><%= link_to "Список файлов и папок", folders_path %></li>
-	<li><%= link_to "Войти", login_path %></li>
-
-	<li><%= link_to "Зарегистрироваться", register_path %></li>
-	<li><%= link_to "Забыли пароль?", password_reset_path %></li>
-	<li><%= link_to "Выйти", logout_path %></li>
+	<% if user_signed_in? %>
+		<% if current_user.isAdmin? %>
+			<li><%= link_to "Список пользователей", users_path %></li>
+		<% end %>
+		<li><%= link_to "Список файлов и папок", folders_path %></li>
+		<li><%= link_to "Выйти", '/users/sign_out', 'data-method' => 'DELETE' %></li>
+	<% else %>
+		<li><%= link_to "Войти", '/users/sign_in' %></li>
+		<li><%= link_to "Зарегистрироваться", '/users/sign_up' %></li>
+		<li><%= link_to "Забыли пароль?", '/users/password/new' %></li>
+	<% end %>
 </ul>

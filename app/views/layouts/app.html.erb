@@ -21,7 +21,7 @@
   <link href="<%= asset_path('/css/webix.css') %>" rel="stylesheet">
   <link href="<%= asset_path('/css/style.css?345345') %>" rel="stylesheet">
 
-  <script type="text/javascript" src="<%= asset_path('/js/jquery/jquery-1.10.1.min.js') %>"></script>
+  <!--<script type="text/javascript" src="<%= asset_path('/js/jquery/jquery-1.10.1.min.js') %>"></script>-->
 
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -34,6 +34,8 @@
         <%= render partial: "include/menu" %>
     </div>
     <div class="col-lg-10 col-sm-10 col-xs-10">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
 			<%= yield %>
 		</div>
   </div>
@@ -42,8 +44,11 @@
     <script type="text/javascript" src="<%= asset_path('/js/dropzone.js') %>"></script>
     <script type="text/javascript" src="<%= asset_path('/js/bootstrap-contextmenu.js?') %>"></script>
     <script type="text/javascript" src="<%= asset_path('/js/client.js?' + Time.now.to_i.to_s) %>"></script>
+
+<% if user_signed_in? && current_user.isAdmin? %>
     
     <script type="text/javascript" src="<%= asset_path('/js/jquery.form.js') %>"></script>
     <script type="text/javascript" src="<%= asset_path('/js/script.js?' + Time.now.to_i.to_s) %>"></script>
+<% end %>
 </body>
 </html>

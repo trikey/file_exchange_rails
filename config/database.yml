@@ -7,18 +7,18 @@
 default: &default
   adapter: mysql2
   encoding: utf8
-  database: fileexchange
+  database: fileexchange2
   username: root
-  password: root
+  password: 
   host: 127.0.0.1
   port: 3306
 
 development:
   adapter: mysql2
   encoding: utf8
-  database: fileexchange
+  database: fileexchange2
   username: root
-  password: root
+  password: 
   host: 127.0.0.1
   port: 3306
 

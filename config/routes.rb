@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get 'users/index' => 'users#index', as: :users
+  
+  devise_for :users
+  get 'users' => 'users#index', as: :users
 
   get 'users/create' => 'users#create', as: :admin_users_create
   delete 'users/:id' => 'users#destroy', as: :admin_users_delete
@@ -8,25 +10,18 @@ Rails.application.routes.draw do
   put 'users/:id/edit' => 'users#updateUser', as: :admin_users_update
 
   get 'folders' => 'folders#index', as: :folders
-  get 'login' => 'folders#index', as: :login
-  get 'register' => 'folders#index', as: :register
-  get 'password_reset' => 'folders#index', as: :password_reset
-  get 'logout' => 'folders#index', as: :logout
-
-
-
   get 'folders' => 'folders#index', as: :admin_folders
   delete 'folders/:id' => 'folders#destroy', as: :admin_folders_delete
   get 'folders/create' => 'folders#create', as: :admin_folders_create
-  get 'folders/gettree' => 'folders#getTree', as: :get_folders_tree
+  get 'folders/gettree' => 'folders#get_tree', as: :get_folders_tree
   post 'folders/create' => 'folders#store', as: :admin_folders_store
   get 'folders/:id/edit' => 'folders#edit', as: :admin_folders_edit
   put 'folders/:id/edit' => 'folders#update', as: :admin_folders_update
-  get 'folders/:id' => 'folders#viewFolder', as: :admin_folder_view
+  get 'folders/:id' => 'folders#view_folder', as: :admin_folder_view
 
-  get 'files/getmodal' => 'files#getModal', as: :admin_files_get_modal
-  get 'files/getmodal/:id' => 'files#getModalForUpdate', as: :admin_files_get_modal_update
-  post 'files/multi' => 'files#multiHandle', as: :admin_files_multi_post
+  get 'files/getmodal' => 'files#get_modal', as: :admin_files_get_modal
+  get 'files/getmodal/:id' => 'files#get_modal_for_update', as: :admin_files_get_modal_update
+  # post 'files/multi' => 'files#multiHandle', as: :admin_files_multi_post
   delete 'files/:id' => 'files#destroy', as: :admin_files_delete
   post 'files/create' => 'files#store', as: :admin_files_store
   put 'files/:id/edit' => 'files#update', as: :admin_files_update
@@ -39,7 +34,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'folders#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

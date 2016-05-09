@@ -1,0 +1,49 @@
+
+<div id="filesModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close close_file_upload" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Перезалить файл</h4>
+            </div>
+            <div class="modal-body" id="file_upload">
+
+
+<form method="POST" action="<%= url_for admin_files_update_path(file.id) %>" accept-charset="UTF-8" class="form" novalidate="novalidate" id="file_upload_form" enctype="multipart/form-data">
+<input name="_method" type="hidden" value="PUT">
+<!-- <input name="_token" type="hidden" value="cSmawOWXHjmGxbdbPXmUo2YRGgzVj3TFd15Zt8Bd"> -->
+
+                    <div class="form-group">
+                        <label for="Описание">Описание</label>
+                        <textarea placeholder="" class="form-control" id="file_name" name="description" cols="50" rows="10"><%= file.description %></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Выберите файл">Выберите Файл</label>
+                        <input id="file" name="file" type="file">
+                    </div>
+                    <input name="folder_id" type="hidden" id="file_upload_folder_id" value="0">
+                    <ul class="text-danger" id="file-errors" style="display: none;">
+                        <li>Файл и название обязательные поля</li>
+                    </ul>
+            </form>
+            
+           
+                    <div class="progress">
+                        <div class="bar" style="width: 0px;"></div >
+                    </div>
+
+                    <div id="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default save_file">Загрузить</button>
+                <button type="button" class="btn btn-default close_file_upload" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="<%= asset_path('/js/file_upload.js') %>"></script>

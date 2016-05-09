@@ -27,6 +27,10 @@ gem 'mysql2'
 gem 'will_paginate', '~> 3.1.0'
 
 gem 'validates_email_format_of'
+gem 'acts_as_tree'
+gem 'carrierwave'
+gem 'devise'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

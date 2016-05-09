@@ -1,20 +1,27 @@
 class FoldersController < ApplicationController
-
+	before_action :authenticate_user!
 	def index
-		@folders = Folder.all
+		# Folder.first.children.create(name: 'test')
+		@folders = Folder.by_parent_id
 		@parentFolder = 'NULL'
 		@breadcrumbs = []
-
+		@files = UploadFile.where('folder_id = 0').all
 		render 'list'
 	end
 
 	def destroy
+		@folder = Folder.find(params[:id])
+		@folder.destroy
+		render nothing: true
 	end
 
-	def create
-	end
-
-	def getTree
+	def get_tree
+		json = [{
+			id: 0,
+			text: 'Корень',
+			nodes: Folder.get_folders
+		}]
+		render json: json
 	end
 
 	def store
@@ -23,13 +30,19 @@ class FoldersController < ApplicationController
 		render partial: 'folders/webix_item', locals: { folder: @folder }
 	end
 
-	def edit
-	end
-
 	def update
+		@folder = Folder.find(params[:id])		
+		@folder.update(folder_params)
+		render partial: 'folders/webix_item', locals: { folder: @folder }
 	end
 
-	def viewFolder
+	def view_folder
+		@folders = Folder.by_parent_id(params[:id])
+		@parentFolder = params[:id]
+		folder = Folder.find(params[:id])
+		@breadcrumbs = folder.parent_tree.reverse
+		@files = UploadFile.by_parent_id(params[:id])
+		render 'list'
 	end
 
 	private

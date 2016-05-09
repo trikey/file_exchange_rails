@@ -1,4 +1,10 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :admin_only
+
+
+
+  
   def index
   	@users = User.paginate(:page => params[:page], :per_page => 10)
   end
@@ -50,4 +56,9 @@ class UsersController < ApplicationController
 	  def user_params
 	    params.require(:user).permit(:fio, :email, :organisation, :password, :password_confirmation, :isModerator, :isAdmin, :canAccess)
 	  end  	
+    def admin_only
+      unless current_user.isAdmin?
+        redirect_to admin_folders_path
+      end
+    end
 end

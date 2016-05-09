@@ -1,0 +1,37 @@
+<div class="folder_container">
+    <div class="webix_column webix_first col-lg-3 col-sm-3 col-xs-3">
+        <div class="webix_cell folder context download_file" data-target="#context-menu-<%= file.id %>" id="folder_<%= file.id %>" data-download-href="<%= url_for admin_files_download_path(file.id) %>">
+            <span class="webix_icon webix_fmanager_icon fa-file-o"></span>
+            <span class='folder_name' title="<%= file.description %>"><%= file.description %></span>
+            <textarea name="description" class="folder_rename_input" style="display: none;" data-method="put" data-id="<%= file.id %>" data-url="<%= url_for admin_files_update_path(file.id) %>"><%= file.description %></textarea>
+        </div>
+    </div>
+    <div class="webix_column col-lg-3 col-sm-3 col-xs-3">
+        <div class="webix_cell">
+            <%= file.updated_at.strftime('%d.%m.%Y %H:%M') %>
+        </div>
+    </div>
+    <div class="webix_column col-lg-2 col-sm-2 col-xs-2">
+        <div class="webix_cell">
+            <%= file.file.file.extension.downcase %>
+        </div>
+    </div>
+    <div class="webix_column col-lg-1 col-sm-1 col-xs-1">
+        <div class="webix_cell">
+            <%= number_to_human_size(file.file.file.size) %>
+        </div>
+    </div>
+    <div class="webix_column col-lg-3 col-sm-3 col-xs-3">
+        <div class="webix_cell">
+            <%= url_for admin_files_download_path(file.id) %>
+        </div>
+    </div>
+</div>
+<div id="context-menu-<%= file.id %>">
+    <ul class="dropdown-menu" role="menu">
+        <li><a tabindex="-1" href="#" class="rename_folder" data-id="<%= file.id %>">Переназвать</a></li>
+        <li><a tabindex="-1" href="#" class="delete_folder" data-id="<%= file.id %>" data-url="<%= url_for admin_files_delete_path(file.id) %>">Удалить</a></li>
+        <li><a tabindex="-1" href="#" class="move_file" data-id="<%= file.id %>">Переместить</a></li>
+        <li><a tabindex="-1" href="#" class="update_file" data-id="<%= file.id %>" data-url="<%= url_for admin_files_get_modal_update_path(file.id) %>">Перезалить</a></li>
+    </ul>
+</div>

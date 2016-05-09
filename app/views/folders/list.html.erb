@@ -10,7 +10,7 @@
 </style>
 
 <h1>Файлы и папки</h1>
-
+<% if current_user.isAdmin? %>
 <a href="#" class="btn btn-primary add_folder">
   <span class="glyphicon glyphicon-plus"></span> Добавить папку
 </a>
@@ -18,6 +18,7 @@
   <span class="glyphicon glyphicon-plus"></span> Загрузить файл
 </a>
 <br/><br/>
+<% end %>
 
 <form method="GET" action="<%= url_for search_path %>" accept-charset="UTF-8" class="form-inline" novalidate="novalidate" id="search_form">
 <div class="form-group">
@@ -59,7 +60,9 @@
                     <% @folders.each do |folder| %>
                         <%= render partial: 'webix_item', locals: { folder: folder } %>
                     <% end %>
-
+                    <% @files.each do |file| %>
+                        <%= render partial: 'files/webix_item', locals: { file: file } %>
+                    <% end %>
 <!--                     @foreach($files as $file)
                        @include('files.webix_item')
                     @endforeach -->
