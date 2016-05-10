@@ -1,13 +1,28 @@
 Rails.application.routes.draw do
-  
   devise_for :users
-  get 'users' => 'users#index', as: :users
 
-  get 'users/create' => 'users#create', as: :admin_users_create
-  delete 'users/:id' => 'users#destroy', as: :admin_users_delete
-  post 'users/create' => 'users#storeUser', as: :admin_users_store
-  get 'users/:id/edit' => 'users#editUser', as: :admin_users_edit
-  put 'users/:id/edit' => 'users#updateUser', as: :admin_users_update
+  # resources :users do
+  #   member do
+  #     post 'make_admin' # /users/:id/make_admin
+  #   end
+
+  scope :admin do
+    resources :users
+  end
+
+  # end
+
+  # scope :users, controller: :users do
+  #   get 'lol' # /users/lol
+  # end
+
+  # get 'users' => 'users#index', as: :users
+
+  # get 'users/create' => 'users#create', as: :admin_users_create
+  # delete 'users/:id' => 'users#destroy', as: :admin_users_delete
+  # post 'users/create' => 'users#storeUser', as: :admin_users_store
+  # get 'users/:id/edit' => 'users#editUser', as: :admin_users_edit
+  # put 'users/:id/edit' => 'users#updateUser', as: :admin_users_update
 
   get 'folders' => 'folders#index', as: :folders
   get 'folders' => 'folders#index', as: :admin_folders

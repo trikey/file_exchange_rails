@@ -1,15 +1,23 @@
 class UploadFile < ActiveRecord::Base
-	include Rails.application.routes.url_helpers
-	mount_uploader :file, FileUploader
+  include Rails.application.routes.url_helpers
 
-	attr_accessor :url
+  mount_uploader :file, FileUploader
 
-	validates :description, presence: true
+  attr_accessor :url
 
-	def url
-		admin_files_download_path(id)
-	end
+  scope :by_parent_id, -> (id = nil) { where(folder_id: id) }
 
-	scope :by_parent_id, -> (id = nil) { where(folder_id: id) }
+  scope :roots, -> { by_parent_id }
 
+  before_save :set_parent_id
+
+  validates :description, presence: true
+
+  def url
+    admin_files_download_path(id)
+  end
+
+  def set_parent_id
+    self.parent_id = nil if parent_id == 0
+  end
 end

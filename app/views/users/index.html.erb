@@ -3,7 +3,7 @@
 
 <h1>Список пользователей</h1>
 
-<a href="<%= url_for admin_users_create_path %>" class="btn btn-primary">
+<a href="<%= url_for new_user_path %>" class="btn btn-primary">
   <span class="glyphicon glyphicon-plus"></span> Добавить пользователя
 </a>
 <br/><br/>
@@ -40,8 +40,8 @@
             <td><%= user.isModerator == 1 ? 'да' : 'нет' %></td>
             <td><%= user.isAdmin == 1 ? 'да' : 'нет' %></td>
             <td>
-                <span data-placement="top" data-toggle="tooltip" title="Edit"><a class="btn btn-primary btn-xs admin_edit" href="<%= url_for admin_users_edit_path(user.id) %>" data-title="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a></span>
-                <span data-placement="top" data-toggle="tooltip" title="Delete"><a class="btn btn-danger btn-xs admin_delete" href="<%= url_for admin_users_delete_path(user.id) %>" data-title="Удалить"><span class="glyphicon glyphicon-trash"></span></a></span>
+                <span data-placement="top" data-toggle="tooltip" title="Edit"><a class="btn btn-primary btn-xs admin_edit" href="<%= url_for edit_user_path(user.id) %>" data-title="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a></span>
+                <span data-placement="top" data-toggle="tooltip" title="Delete"><a class="btn btn-danger btn-xs admin_delete" href="<%= url_for user_path(user.id) %>" data-title="Удалить"><span class="glyphicon glyphicon-trash"></span></a></span>
             </td>
         </tr>
     <% end %>

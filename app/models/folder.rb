@@ -1,61 +1,54 @@
 class Folder < ActiveRecord::Base
-	include Rails.application.routes.url_helpers
+  include Rails.application.routes.url_helpers
 
-	validates :name, presence: true
+  scope :by_parent_id, -> (id = nil) { where(parent_id: id) }
 
-	acts_as_tree
+  scope :roots, -> { by_parent_id }
 
-	before_save :set_parent_id
+  validates :name, presence: true
 
-	attr_reader :url
+  acts_as_tree
 
+  before_save :set_parent_id
 
-	def url
-		admin_folder_view_path(id)
-	end
+  attr_reader :url
 
-	def set_parent_id
-		if self.parent_id == 0
-			self.parent_id = nil
-		end
+  def url
+    admin_folder_view_path(id)
+  end
 
-		if parent_id_changed? && children_ids.include?(parent_id)
-			self.parent_id = parent_id_was
-		end
-	end
+  def set_parent_id
+    self.parent_id = nil if parent_id == 0
 
-	def self.get_folders
-		by_parent_id.all.map {|child| child.get_tree }
-	end
+    if parent_id_changed? && children_ids.include?(parent_id)
+      self.parent_id = parent_id_was
+    end
+  end
 
-	def get_tree
-		hash = {
-			id: id,
-			text: name,
-		}
-		if children.present?
-			hash[:nodes] = children.map { |child| child.get_tree }
-		end
-		hash
-	end
+  def self.get_tree
+    by_parent_id.all.map(&:get_tree)
+  end
 
-	def parent_tree(folders = [])
-		folders << {id: id, name: name, url: url}
-		if parent.present?
-			parent.parent_tree(folders)
-		end
-		folders
-	end
+  def get_tree
+    hash = {
+      id: id,
+      text: name
+    }
+    hash[:nodes] = children.map(&:get_tree) if children.present?
+    hash
+  end
 
-	def children_ids(ids = [])
-		children.each do |child|
-			ids << child.id
-			child.children_ids(ids)
-		end
-		ids
-	end
+  def parent_tree(folders = [])
+    folders << { id: id, name: name, url: url }
+    parent.parent_tree(folders) if parent.present?
+    folders
+  end
 
-	scope :by_parent_id, -> (id = nil) { where(parent_id: id) }
-
-
+  def children_ids(ids = [])
+    children.each do |child|
+      ids << child.id
+      child.children_ids(ids)
+    end
+    ids
+  end
 end

@@ -1,5 +1,5 @@
 
-<%= form_for :user, :method => @form_created.present? ? 'post' : 'put' do |f| %>
+<%= form_for @user do |f| %>
 
 
   <% if @user.present? and @user.errors.any? %>
@@ -40,7 +40,7 @@
  <div class="form-group">
     <div class="checkbox">
         <label>
-    <%= f.check_box :isModerator, :value => 1 %> <b>Модератор</b>
+    <%= f.check_box :isModerator, value: 1 %> <b>Модератор</b>
     </label>
     </div>
  </div>
